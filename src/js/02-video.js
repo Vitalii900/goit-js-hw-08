@@ -1,11 +1,13 @@
+import throttle from 'lodash.throttle';
+
 const iframe = document.querySelector('iframe');
 const player = new Vimeo.Player(iframe);
 
-player.on('timeupdate', getCurrentTime);
+player.on('timeupdate', throttle(getCurrentTime, 1000));
 
 function getCurrentTime(e) {
-  // console.log(e.seconds);
   localStorage.setItem('videoplayer-current-time', JSON.stringify(e.seconds));
+  // console.log(e.seconds);
 }
 
 function startAfterReload() {
