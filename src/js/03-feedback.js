@@ -28,9 +28,9 @@ function onFormSubmit(evt) {
 
   const elements = evt.currentTarget.elements;
 
-  console.log(`email: ${elements.email.value}`);
+  console.log(JSON.parse(localStorage.getItem('feedback-form-state')));
 
-  console.log(`message: ${elements.message.value}`);
+  // console.log(`message: ${elements.message.value}`);
   evt.currentTarget.reset();
   localStorage.clear();
 }
