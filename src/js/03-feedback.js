@@ -15,6 +15,7 @@ formRef.addEventListener('submit', onFormSubmit);
 
 check();
 
+
 function onFormInput(currTarget) {
   const email = currTarget.elements.email.value;
   const message = currTarget.elements.message.value;
