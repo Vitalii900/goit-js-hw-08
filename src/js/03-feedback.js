@@ -6,6 +6,11 @@ const inputRef = document.querySelector('input');
 
 const textareaRef = document.querySelector('textarea');
 
+// Цей метод не працює
+
+// const throttled = throttle(onFormInput, 1000);
+// formRef.addEventListener('input', e => throttled(e));
+
 formRef.addEventListener('input', onFormInput);
 
 formRef.addEventListener('submit', onFormSubmit);
@@ -38,12 +43,20 @@ function check() {
     localStorage.getItem('feedback-form-state')
   );
 
-  //   console.log(valuesForCheck.email.length);
+  // console.log(valuesForCheck.email.length);
 
-  if (
-    valuesForCheck.email.length !== 0 ||
+  if (!valuesForCheck) return;
+  else if (
+    valuesForCheck.email.length !== 0 &&
+    valuesForCheck.message.length === 0
+  ) {
+    inputRef.value = valuesForCheck.email;
+  } else if (
+    valuesForCheck.email.length === 0 &&
     valuesForCheck.message.length !== 0
   ) {
+    textareaRef.value = valuesForCheck.message;
+  } else {
     inputRef.value = valuesForCheck.email;
     textareaRef.value = valuesForCheck.message;
   }
