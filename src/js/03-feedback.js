@@ -6,23 +6,19 @@ const inputRef = document.querySelector('input');
 
 const textareaRef = document.querySelector('textarea');
 
-// Цей метод не працює
 
-// const throttled = throttle(onFormInput, 1000);
-// formRef.addEventListener('input', e => throttled(e));
+const throttled = throttle(onFormInput, 1000);
 
-formRef.addEventListener('input', onFormInput);
+formRef.addEventListener('input', e => throttled(e.currentTarget));
 
 formRef.addEventListener('submit', onFormSubmit);
 
 check();
 
-function onFormInput(evt) {
-  const email = evt.currentTarget.elements.email.value;
-  const message = evt.currentTarget.elements.message.value;
-
+function onFormInput(currTarget) {
+  const email = currTarget.elements.email.value;
+  const message = currTarget.elements.message.value;
   const formValues = JSON.stringify({ email, message });
-
   localStorage.setItem('feedback-form-state', formValues);
 }
 
