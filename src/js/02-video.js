@@ -1,7 +1,8 @@
 import throttle from 'lodash.throttle';
+import Player from '@vimeo/player';
 
 const iframe = document.querySelector('iframe');
-const player = new Vimeo.Player(iframe);
+const player = new Player(iframe);
 
 
 player.on('timeupdate', throttle(getCurrentTime, 1000));
@@ -13,20 +14,18 @@ startAfterReload();
 
 function getCurrentTime(e) {
   const seconds = e.seconds;
+  const duration = e.duration;
+  if (seconds === duration) {
+    localStorage.clear();
+    return;
+  }
   localStorage.setItem('videoplayer-current-time', JSON.stringify(seconds));
   // console.log(e.seconds);
 }
 
 function startAfterReload() {
-  checkForFinishVideo();
   if (currentTime) {
     player.setCurrentTime(parcedTime);
-  }
-}
-
-function checkForFinishVideo() {
-  if (currentTime > 560) {
-    localStorage.clear();
   }
 }
 
